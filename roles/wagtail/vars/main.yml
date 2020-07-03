@@ -1,0 +1,20 @@
+---
+# vars file for wagtail
+
+python_packages:
+  - python3
+  - epel-release
+  - python-pip
+  - python-devel
+  - python3-devel
+  - gcc-c++
+
+pip3_packages:
+  - wagtail
+  - uwsgi
+  - pymysql
+
+venv_packages:
+  - wagtail
+  - uwsgi
+  - pymysql

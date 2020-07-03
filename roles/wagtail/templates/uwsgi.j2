@@ -1,0 +1,12 @@
+[uwsgi]
+http = :8000
+socket = {{ project_path }}/{{ project_name }}/{{ project_name }}.sock
+chdir = {{ project_path }}/{{ project_name }}
+pythonpath = {{ project_path }}/{{ project_name }}/{{ project_name }}
+home = {{ venv_path }}/{{ venv_name }}
+module = {{ project_name }}.wsgi
+uid = root
+gid = root
+chmod-socket = 666
+chown-socket = root:root
+vacuum  = true

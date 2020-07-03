@@ -1,0 +1,9 @@
+---
+# defaults file for wagtail
+
+venv_path:  '/opt/python-virtual-env'
+venv_name: 'demo'
+
+database: []
+project_path: ''
+project_name: ''

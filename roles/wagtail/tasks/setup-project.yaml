@@ -1,0 +1,42 @@
+---
+
+- name: Ensure python virtual env directory exists
+  file: 
+    path: "{{ venv_path }}"
+    state: directory
+
+- name: Create Virtual Environment and install wagtail / uwsgi
+  pip:
+    name: "{{ venv_packages }}"
+    virtualenv: "{{ venv_path}}/{{ venv_name }}"
+    virtualenv_command: /usr/bin/python3 -m venv
+
+- name: Ensure project directory exists
+  file: 
+    path: "{{ project_path }}"
+    state: directory
+
+- name: Create the Project
+  shell:  cd {{ project_path }} && wagtail start {{ project_name }}
+
+- name: Copy database configuration as local.py
+  template: 
+    src:  local.j2 
+    dest: "{{ project_path }}/{{ project_name }}/{{ project_name }}/settings/local.py"
+
+- name: Copy __init__.py to override mysqlclient with pymysql
+  copy:
+    src: files/__init__.py
+    dest: "{{ project_path }}/{{ project_name }}/{{ project_name }}/settings/__init__.py"
+
+- name: Install wagtail requirements
+  pip:
+    requirements: "{{ project_path }}/{{ project_name }}/requirements.txt"
+    virtualenv: "{{ venv_path}}/{{ venv_name }}"
+
+- name: Migrate wagtail db
+  shell: cd {{ project_path }}/{{ project_name }} && python3 manage.py migrate
+
+- name: Collect wagtail static files 
+  shell: cd {{ project_path }}/{{ project_name }} && python3 manage.py collectstatic
+

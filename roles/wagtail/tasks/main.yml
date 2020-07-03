@@ -1,0 +1,9 @@
+---
+# tasks file for wagtail
+
+- include_vars:
+    file: main.yml
+
+- include_tasks: install.yaml
+- include_tasks: setup-project.yaml
+- include_tasks: setup-uwsgi-env.yaml

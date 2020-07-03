@@ -1,0 +1,16 @@
+server {
+	listen 80;
+	server_name localhost;
+	error_log /var/log/nginx/wagtail_error.log;
+    	access_log /var/log/nginx/wagtail_access.log;
+	charset utf-8;
+
+	location /static/ {
+		alias {{ project_path }}/{{ project_name }}/static/;
+	}
+
+	location / {
+		uwsgi_pass unix:{{ project_path }}/{{ project_name }}/{{ project_name }}.sock;
+		include uwsgi_params;
+	}
+}

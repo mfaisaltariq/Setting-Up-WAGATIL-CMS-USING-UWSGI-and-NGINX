@@ -1,0 +1,19 @@
+---
+ansible_port: 2227
+
+proj_name: 'demo'
+proj_path: '/srv/www'
+
+db_root_pass: "mypassword"
+db_user: 
+  name: "myuser"
+  password: "mypassword"
+  priv: "arbisoftdb.*:ALL,GRANT"
+  host: "%"
+  hostname: "localhost"
+  port: "3306"
+
+db: 
+  name: "arbisoftdb"
+
+

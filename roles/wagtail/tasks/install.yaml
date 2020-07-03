@@ -1,0 +1,13 @@
+# Install Python3, pip and supporting packages
+---
+
+- name: Install python packages
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ python_packages }}"
+
+- name: Install pip packages 
+  pip:
+    name: "{{ pip3_packages }}"
+    executable: pip3

@@ -1,0 +1,12 @@
+{% for var in database %}
+DATABASES = {
+    'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': '{{ var.name }}',
+            'HOST': '{{ var.hostname }}',
+            'USER': '{{ var.user }}',
+            'PASSWORD': '{{ var.password }}',
+            'PORT': '{{ var.port }}'
+    }
+}
+{% endfor %}

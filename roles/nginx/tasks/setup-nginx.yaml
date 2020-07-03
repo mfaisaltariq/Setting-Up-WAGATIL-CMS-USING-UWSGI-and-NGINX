@@ -1,0 +1,31 @@
+---
+
+- name: Install Nginx
+  package:
+    name: nginx
+    state: installed
+
+- name: Copy nginx.config to override default file
+  copy:
+    src: files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: Copy nginx configuration file of project
+  template: 
+    src:  nginx.j2 
+    dest: /etc/nginx/conf.d/{{ project_name }}.conf
+
+- name: Restart service nginx and enable on boot
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: true
+
+- name: Install semanage
+  package:
+    name: policycoreutils-python
+    state: installed
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
